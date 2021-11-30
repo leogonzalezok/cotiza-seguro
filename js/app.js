@@ -55,11 +55,11 @@ UI.prototype.mostrarMensaje = (mensaje, tipo) => {
   const formulario = document.querySelector('#cotizar-seguro');
   const div = document.createElement('div');
   if(tipo==='error'){
-    div.classList.add('error');
+    div.classList.add('alert-danger');
   }else{
-    div.classList.add('correcto')
+    div.classList.add('alert-success')
   }
-  div.classList.add('mensaje', 'mt-10');
+  div.classList.add('alert', 'mt-5', 'text-center');
   div.textContent = mensaje;
   // Insertar en el HTML
   formulario.insertBefore(div,document.querySelector('#resultado'));
@@ -86,19 +86,24 @@ UI.prototype.mostrarResultado = (seguro, total)=>{
       break;
   }
   const div = document.createElement('div');
-  div.classList.add('mt-10');
+  div.classList.add('card', 'bg-light','text-dark', 'text-center', 'col-md-4','mt-3');
   div.innerHTML = `
-    <p class="header"> Tu resumen </p>
-    <p class="font-bold">Marca: <span class="font-normal">${textoMarca}</span> </p>
-    <p class="font-bold">Año: <span class="font-normal">${year}</span> </p>
-    <p class="font-bold">Tipo: <span class="font-normal">${tipo}</span> </p>
-    <p class="font-bold">Total: <span class="font-normal">$${total}</span> </p>
+    <div class="card-header">
+      <p class="fs-4 mb-1"> Tu resumen </p>
+    </div>
+    <div class="card-body">
+      <p>Marca: ${textoMarca}</span> </p>
+      <p>Año: ${year}</span> </p>
+      <p>Tipo: ${tipo}</span> </p>
+      <p>Total: $${total}</span> </p>
+    </div>
+    
   `;
   const resultadoDiv = document.querySelector('#resultado');
   const spinner = document.querySelector('#cargando');
-  spinner.style.display = 'block';
+  spinner.classList.remove('visually-hidden');
   setTimeout(() => {
-    spinner.style.display = 'none';
+    spinner.classList.add('visually-hidden');
     resultadoDiv.appendChild(div);
   }, 2000);
 }
